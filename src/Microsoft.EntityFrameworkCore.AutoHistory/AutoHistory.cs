@@ -34,6 +34,12 @@ namespace Microsoft.EntityFrameworkCore
         public string Changed { get; set; }
 
         /// <summary>
+        /// Gets or sets the username who is commiting the change.
+        /// </summary>
+        /// <value>The name Of the User</value>
+        public string UserName { get; set; }
+
+        /// <summary>
         /// Gets or sets the change kind.
         /// </summary>
         /// <value>The change kind.</value>
