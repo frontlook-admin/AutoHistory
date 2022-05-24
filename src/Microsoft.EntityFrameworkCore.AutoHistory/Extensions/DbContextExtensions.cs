@@ -3,13 +3,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using FrontLook.Internal;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Internal;
 
 using Newtonsoft.Json.Linq;
 
-namespace Microsoft.EntityFrameworkCore
+namespace FrontLook
 {
     /// <summary>
     /// Represents a plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.

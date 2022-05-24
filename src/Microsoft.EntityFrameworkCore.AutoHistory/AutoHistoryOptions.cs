@@ -4,7 +4,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Microsoft.EntityFrameworkCore.Internal
+namespace FrontLook.Internal
 {
     /// <summary>
     /// This class provides options for setting up auto history.

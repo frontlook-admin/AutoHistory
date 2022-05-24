@@ -3,10 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Microsoft.EntityFrameworkCore.Internal {
+namespace FrontLook.Internal {
     internal class EntityContractResolver : DefaultContractResolver {
         private readonly DbContext _dbContext;
 

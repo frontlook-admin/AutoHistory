@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Arch team. All rights reserved.
 
 using System;
+using Microsoft.EntityFrameworkCore;
 
-namespace Microsoft.EntityFrameworkCore
+namespace FrontLook
 {
     /// <summary>
     /// Represents the entity change history.

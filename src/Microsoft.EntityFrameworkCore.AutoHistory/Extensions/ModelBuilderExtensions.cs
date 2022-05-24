@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Arch team. All rights reserved.
 
 using System;
-using Microsoft.EntityFrameworkCore.Internal;
+using FrontLook.Internal;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Microsoft.EntityFrameworkCore
+namespace FrontLook
 {
     /// <summary>
     /// Represents a plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.
