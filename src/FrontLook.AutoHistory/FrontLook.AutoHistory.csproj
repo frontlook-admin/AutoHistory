@@ -8,8 +8,8 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Microsoft.EntityFrameworkCore.AutoHistory</AssemblyName>
-    <PackageId>Microsoft.EntityFrameworkCore.AutoHistory</PackageId>
+    <AssemblyName>FrontLook.AutoHistory</AssemblyName>
+    <PackageId>FrontLook.AutoHistory</PackageId>
     <PackageTags>Entity Framework Core;entity-framework-core;EF;Data;O/RM;Auto History;auto-history</PackageTags>
     <PackageProjectUrl>https://github.com/arch/AutoHistory</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

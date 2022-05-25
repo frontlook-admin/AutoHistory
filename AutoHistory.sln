@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EEF95A1B-E22
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{504C6707-0D9C-4FA7-861D-B1A97AF39E32}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.EntityFrameworkCore.AutoHistory", "src\Microsoft.EntityFrameworkCore.AutoHistory\Microsoft.EntityFrameworkCore.AutoHistory.csproj", "{5927DE0F-FA62-4B71-8AAF-2B3DDC405E34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontLook.AutoHistory", "src\FrontLook.AutoHistory\FrontLook.AutoHistory.csproj", "{5927DE0F-FA62-4B71-8AAF-2B3DDC405E34}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.EntityFrameworkCore.AutoHistory.Test", "test\Microsoft.EntityFrameworkCore.AutoHistory.Test\Microsoft.EntityFrameworkCore.AutoHistory.Test.csproj", "{2F6C239E-9F05-4654-936B-CFBB00412E4B}"
 EndProject
