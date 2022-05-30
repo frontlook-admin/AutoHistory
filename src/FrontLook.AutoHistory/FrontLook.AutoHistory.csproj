@@ -11,10 +11,11 @@
     <AssemblyName>FrontLook.AutoHistory</AssemblyName>
     <PackageId>FrontLook.AutoHistory</PackageId>
     <PackageTags>Entity Framework Core;entity-framework-core;EF;Data;O/RM;Auto History;auto-history</PackageTags>
-    <PackageProjectUrl>https://github.com/arch/AutoHistory</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/frontlook-admin/AutoHistory</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/arch/AutoHistory.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/frontlook-admin/AutoHistory.git</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
