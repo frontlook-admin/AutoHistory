@@ -74,6 +74,7 @@ namespace FrontLook
             where TAutoHistory : AutoHistory
         {
             var history = createHistoryFactory();
+            history.Id = Guid.NewGuid().ToString();
             history.TableName = entry.Metadata.GetTableName();
             history.UserName = UserName;
             // Get the mapped properties for the entity type.

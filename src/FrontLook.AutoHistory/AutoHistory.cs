@@ -14,7 +14,7 @@ namespace FrontLook
         /// Gets or sets the primary key.
         /// </summary>
         /// <value>The id.</value>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or sets the source row id.
