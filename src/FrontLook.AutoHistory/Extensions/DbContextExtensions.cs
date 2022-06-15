@@ -180,5 +180,53 @@ namespace FrontLook
 
             return string.Join(",", values);
         }
+
+        public static IEnumerable<AutoHistory> GetAutoHistory(this DbContext context, bool EnableAddedEntries = false, string UserName = null)
+        {
+            return GetAutoHistory<AutoHistory>(context, () => new AutoHistory(), EnableAddedEntries, UserName);
+        }
+
+        public static IEnumerable<AutoHistory> GetAutoHistory(this DbContext context, EntityEntry[] entries, string UserName = null)
+        {
+            var v = GetAutoHistory<AutoHistory>(context, () => new AutoHistory(), entries, UserName);
+            return v;
+        }
+
+        public static IEnumerable<AutoHistory> GetAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, EntityEntry[] entries, string UserName = null)
+            where TAutoHistory : AutoHistory
+        {
+            // Must ToArray() here for excluding the AutoHistory model.
+            //entries = context.ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged && e.State != EntityState.Detached).ToArray();
+            var TAutoHistories = new List<TAutoHistory>();
+            foreach (var entry in entries)
+            {
+                TAutoHistories.Add(entry.AutoHistory(createHistoryFactory, UserName));
+            }
+            return TAutoHistories;
+        }
+
+        public static List<TAutoHistory> GetAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, bool EnableAddedEntries = false, string UserName = null)
+            where TAutoHistory : AutoHistory
+        {
+            // Must ToArray() here for excluding the AutoHistory model.
+            // Currently, only support Modified and Deleted entity.
+            var entries = new List<EntityEntry>();
+            if (EnableAddedEntries)
+            {
+                entries = context.ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList();
+            }
+            else
+            {
+
+                entries = context.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList();
+            }
+            var TAutoHistories = new List<TAutoHistory>();
+            foreach (var entry in entries)
+            {
+                TAutoHistories.Add(entry.AutoHistory(createHistoryFactory, UserName));
+            }
+            return TAutoHistories;
+        }
+
     }
 }
