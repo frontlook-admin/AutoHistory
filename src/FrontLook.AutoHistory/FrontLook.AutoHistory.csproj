@@ -3,7 +3,7 @@
     <TargetFrameworks>net6.0;net6.0-Windows</TargetFrameworks>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
     <VersionPrefix>3.1.23</VersionPrefix>
-    <DotNetCore>6.0.5</DotNetCore>
+    <DotNetCore>6.0.6</DotNetCore>
     <Authors>rigofunc;rigofunc@outlook.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -26,6 +26,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(DotNetCore)" />
   </ItemGroup>
 </Project>
