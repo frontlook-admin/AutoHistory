@@ -7,19 +7,24 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace FrontLook.Internal {
-    internal class EntityContractResolver : DefaultContractResolver {
+namespace FrontLook.IAutoHistory.Internal
+{
+    internal class EntityContractResolver : DefaultContractResolver
+    {
         private readonly DbContext _dbContext;
 
-        public EntityContractResolver(DbContext dbContext) {
+        public EntityContractResolver(DbContext dbContext)
+        {
             _dbContext = dbContext;
         }
 
-        protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization) {
+        protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+        {
             var list = base.CreateProperties(type, memberSerialization);
 
             var entry = _dbContext.ChangeTracker.Entries().FirstOrDefault(e => e.Entity.GetType() == type);
-            if (entry == null) {
+            if (entry == null)
+            {
                 return list;
             }
 

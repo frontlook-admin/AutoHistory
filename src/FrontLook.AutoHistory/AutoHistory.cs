@@ -3,7 +3,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace FrontLook
+namespace FrontLook.IAutoHistory
 {
     /// <summary>
     /// Represents the entity change history.

@@ -3,14 +3,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FrontLook.Internal;
+using FrontLook.IAutoHistory.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Internal;
 
 using Newtonsoft.Json.Linq;
 
-namespace FrontLook
+namespace FrontLook.IAutoHistory
 {
     /// <summary>
     /// Represents a plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.
@@ -44,7 +44,7 @@ namespace FrontLook
             // Must ToArray() here for excluding the AutoHistory model.
             // Currently, only support Modified and Deleted entity.
             var entries = new List<EntityEntry>();
-           if (EnableAddedEntries)
+            if (EnableAddedEntries)
             {
                 entries = context.ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList();
             }
@@ -53,10 +53,15 @@ namespace FrontLook
 
                 entries = context.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList();
             }
+
+            var k = new List<AutoHistory>();
             foreach (var entry in entries)
             {
-                context.Add<TAutoHistory>(entry.AutoHistory(createHistoryFactory,UserName));
+                k.Add(entry.AutoHistory(createHistoryFactory, UserName));
             }
+            context.SaveChanges();
+
+            context.AddRange(k);
         }
 
         public static void EnsureAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, EntityEntry[] entries, string UserName = null)
@@ -64,10 +69,13 @@ namespace FrontLook
         {
             // Must ToArray() here for excluding the AutoHistory model.
             //entries = context.ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged && e.State != EntityState.Detached).ToArray();
+            var k = new List<AutoHistory>();
             foreach (var entry in entries)
             {
-                context.Add(entry.AutoHistory(createHistoryFactory,UserName));
+                k.Add(entry.AutoHistory(createHistoryFactory, UserName));
             }
+            context.SaveChanges();
+            context.AddRange(k);
         }
 
         public static TAutoHistory AutoHistory<TAutoHistory>(this EntityEntry entry, Func<TAutoHistory> createHistoryFactory, string UserName = null)
