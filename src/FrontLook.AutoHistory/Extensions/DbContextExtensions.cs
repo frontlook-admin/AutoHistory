@@ -60,7 +60,27 @@ namespace FrontLook.IAutoHistory
                 k.Add(entry.AutoHistory(createHistoryFactory, UserName));
             }
             context.SaveChanges();
+            /*
+            var ct = 0;
+            var saved = false;
+            while (ct < 2 && !saved)
+            {
 
+#pragma warning disable CS0168 // Variable is declared but never used
+                try
+                {
+                    context.SaveChanges();
+                    saved = true;
+                }
+                catch (Exception ex)
+                {
+                    ct++;
+
+                }
+#pragma warning restore CS0168 // Variable is declared but never used
+            }
+            //entries.ForEach(e => e.State = EntityState.Detached);
+            */
             context.AddRange(k);
         }
 

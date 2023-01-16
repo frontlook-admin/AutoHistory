@@ -2,14 +2,13 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;net6.0-Windows</TargetFrameworks>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
-    <VersionPrefix>3.1.23</VersionPrefix>
-    <DotNetCore>6.0.6</DotNetCore>
-    <Authors>rigofunc;rigofunc@outlook.com</Authors>
+    <DotNetCore>6.0.11</DotNetCore>
+    <Authors>rigofunc;rigofunc@outlook.com;FrontLook-Admin;frontlook.inc@gmail.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>FrontLook.AutoHistory</AssemblyName>
-    <PackageId>FrontLook.AutoHistory</PackageId>
+    <AssemblyName>FrontLook.IAutoHistory</AssemblyName>
+    <PackageId>FrontLook.IAutoHistory</PackageId>
     <PackageTags>Entity Framework Core;entity-framework-core;EF;Data;O/RM;Auto History;auto-history</PackageTags>
     <PackageProjectUrl>https://github.com/frontlook-admin/AutoHistory</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -17,15 +16,34 @@
     <RepositoryUrl>https://github.com/frontlook-admin/AutoHistory.git</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
-
-    <!--<LangVersion>8.0</LangVersion>-->
-    <!--<LangVersion>latestMajor</LangVersion>-->
+    <!--<Nullable>enable</Nullable>-->
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
     <!--<Nullable>enable</Nullable>-->
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+
+  <PropertyGroup Label="Version" Condition="'$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true'">
+
+    <BuildId>$([System.DateTime]::Now.ToString(yy.MMdd))</BuildId>
+    <BuildCode>$([System.DateTime]::Now.ToString(hhmmss))</BuildCode>
+    <VersionPrefix>6.0.$(BuildId)</VersionPrefix>
+    <BuildVersion>$(BuildCode)</BuildVersion>
+    <VersionSuffix>R$(BuildCode)</VersionSuffix>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Product>$(AssemblyName)</Product>
+    <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
+
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(DotNetCore)" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(DotNetCore)" />
   </ItemGroup>
+
 </Project>
