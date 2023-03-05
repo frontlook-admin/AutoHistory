@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;net6.0-Windows</TargetFrameworks>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
-    <DotNetCore>6.0.11</DotNetCore>
+    <DotNetCore>6.0.14</DotNetCore>
     <Authors>rigofunc;rigofunc@outlook.com;FrontLook-Admin;frontlook.inc@gmail.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -31,17 +31,19 @@
     <BuildCode>$([System.DateTime]::Now.ToString(hhmmss))</BuildCode>
     <VersionPrefix>6.0.$(BuildId)</VersionPrefix>
     <BuildVersion>$(BuildCode)</BuildVersion>
-    <VersionSuffix>R$(BuildCode)</VersionSuffix>
+    <VersionSuffix Condition="'$(Configuration)'=='Release'">R$(BuildCode)</VersionSuffix>
+
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <PackageId>$(AssemblyName)</PackageId>
     <Product>$(AssemblyName)</Product>
-    <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
+    <Version Condition="'$(Configuration)'=='Release'">$(VersionPrefix)-$(VersionSuffix)</Version>
+    <Version Condition="'$(Configuration)'=='Debug'">$(VersionPrefix)</Version>
 
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(DotNetCore)" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(DotNetCore)" />
   </ItemGroup>
