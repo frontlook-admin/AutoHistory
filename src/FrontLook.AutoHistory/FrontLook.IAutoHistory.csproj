@@ -14,7 +14,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/frontlook-admin/AutoHistory.git</RepositoryUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 
     <!--<Nullable>enable</Nullable>-->
     <ImplicitUsings>enable</ImplicitUsings>
@@ -24,24 +24,23 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-
   <PropertyGroup Label="Version" Condition="'$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true'">
-
-    <BuildId>$([System.DateTime]::Now.ToString(yy.MMdd))</BuildId>
+    <MBId>3</MBId>
+    <BuildId Condition="'$(Configuration)'=='Release'">$([System.DateTime]::Now.ToString(yy)).$(MBId)</BuildId>
+    <BuildId Condition="'$(Configuration)'=='Debug'">$([System.DateTime]::Now.ToString(yy.MMdd))</BuildId>
     <BuildCode>$([System.DateTime]::Now.ToString(hhmmss))</BuildCode>
     <VersionPrefix>6.0.$(BuildId)</VersionPrefix>
     <BuildVersion>$(BuildCode)</BuildVersion>
-    <VersionSuffix Condition="'$(Configuration)'=='Release'">R$(BuildCode)</VersionSuffix>
+    <VersionSuffix Condition="'$(Configuration)'=='Debug'">D$(BuildCode)</VersionSuffix>
 
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <PackageId>$(AssemblyName)</PackageId>
     <Product>$(AssemblyName)</Product>
-    <Version Condition="'$(Configuration)'=='Release'">$(VersionPrefix)-$(VersionSuffix)</Version>
-    <Version Condition="'$(Configuration)'=='Debug'">$(VersionPrefix)</Version>
+    <Version Condition="'$(Configuration)'=='Release'">$(VersionPrefix)</Version>
+    <Version Condition="'$(Configuration)'=='Debug'">$(VersionPrefix)-$(VersionSuffix)</Version>
 
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(DotNetCore)" />
