@@ -31,11 +31,33 @@ namespace FrontLook.IAutoHistory
         /// Ensures the automatic history.
         /// </summary>
         /// <param name="context">The context.</param>
+        /// <param name="autoHistories"></param>
+        /// <param name="EnableAddedEntries">If Enable Added Entities</param>
+        /// <param name="UserName"></param>
+        public static void EnsureAutoHistory(this DbContext context, out List<AutoHistory> autoHistories, bool EnableAddedEntries = false, string UserName = null)
+        {
+            EnsureAutoHistory<AutoHistory>(context, () => new AutoHistory(), out autoHistories, EnableAddedEntries, UserName);
+        }
+        /// <summary>
+        /// Ensures the automatic history.
+        /// </summary>
+        /// <param name="context">The context.</param>
         /// <param name="entries">EntityEntry</param>
         /// <param name="UserName"></param>
         public static void EnsureAutoHistory(this DbContext context, EntityEntry[] entries, string UserName = null)
         {
             EnsureAutoHistory<AutoHistory>(context, () => new AutoHistory(), entries, UserName);
+        }
+        /// <summary>
+        /// Ensures the automatic history.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="entries">EntityEntry</param>
+        /// <param name="autoHistories"></param>
+        /// <param name="UserName"></param>
+        public static void EnsureAutoHistory(this DbContext context, EntityEntry[] entries, out List<AutoHistory> autoHistories, string UserName = null)
+        {
+            EnsureAutoHistory<AutoHistory>(context, () => new AutoHistory(), entries, out autoHistories, UserName);
         }
 
         public static void EnsureAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, bool EnableAddedEntries = false, string UserName = null)
@@ -83,6 +105,52 @@ namespace FrontLook.IAutoHistory
             */
             context.AddRange(k);
         }
+        public static void EnsureAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, out List<TAutoHistory> autoHistories, bool EnableAddedEntries = false, string UserName = null)
+            where TAutoHistory : AutoHistory
+        {
+            // Must ToArray() here for excluding the AutoHistory model.
+            // Currently, only support Modified and Deleted entity.
+            var entries = new List<EntityEntry>();
+            if (EnableAddedEntries)
+            {
+                entries = context.ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList();
+            }
+            else
+            {
+
+                entries = context.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList();
+            }
+
+            var k = new List<AutoHistory>();
+            foreach (var entry in entries)
+            {
+                k.Add(entry.AutoHistory(createHistoryFactory, UserName));
+            }
+            context.SaveChanges();
+            /*
+            var ct = 0;
+            var saved = false;
+            while (ct < 2 && !saved)
+            {
+
+#pragma warning disable CS0168 // Variable is declared but never used
+                try
+                {
+                    context.SaveChanges();
+                    saved = true;
+                }
+                catch (Exception ex)
+                {
+                    ct++;
+
+                }
+#pragma warning restore CS0168 // Variable is declared but never used
+            }
+            //entries.ForEach(e => e.State = EntityState.Detached);
+            */
+            context.AddRange(k);
+            autoHistories = k.Cast<TAutoHistory>().ToList();
+        }
 
         public static void EnsureAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, EntityEntry[] entries, string UserName = null)
             where TAutoHistory : AutoHistory
@@ -96,6 +164,20 @@ namespace FrontLook.IAutoHistory
             }
             context.SaveChanges();
             context.AddRange(k);
+        }
+        public static void EnsureAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, EntityEntry[] entries, out List<TAutoHistory> autoHistories, string UserName = null)
+            where TAutoHistory : AutoHistory
+        {
+            // Must ToArray() here for excluding the AutoHistory model.
+            //entries = context.ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged && e.State != EntityState.Detached).ToArray();
+            var k = new List<TAutoHistory>();
+            foreach (var entry in entries)
+            {
+                k.Add(entry.AutoHistory(createHistoryFactory, UserName));
+            }
+            context.SaveChanges();
+            context.AddRange(k);
+            autoHistories = k.Cast<TAutoHistory>().ToList();
         }
 
         public static TAutoHistory AutoHistory<TAutoHistory>(this EntityEntry entry, Func<TAutoHistory> createHistoryFactory, string UserName = null)
