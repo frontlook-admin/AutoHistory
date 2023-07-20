@@ -6,7 +6,8 @@
     <Authors>rigofunc;rigofunc@outlook.com;FrontLook-Admin;frontlook.inc@gmail.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <DebugType>None</DebugType>
     <AssemblyName>FrontLook.IAutoHistory</AssemblyName>
     <PackageId>FrontLook.IAutoHistory</PackageId>
     <PackageTags>Entity Framework Core;entity-framework-core;EF;Data;O/RM;Auto History;auto-history</PackageTags>
