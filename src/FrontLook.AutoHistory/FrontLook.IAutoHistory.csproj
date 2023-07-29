@@ -7,7 +7,7 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <DebugType>None</DebugType>
+    <DebugType Condition="'$(Configuration)'!='Debug'">None</DebugType>
     <AssemblyName>FrontLook.IAutoHistory</AssemblyName>
     <PackageId>FrontLook.IAutoHistory</PackageId>
     <PackageTags>Entity Framework Core;entity-framework-core;EF;Data;O/RM;Auto History;auto-history</PackageTags>
