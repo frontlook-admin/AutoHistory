@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
-    <DotNetCore>6.0.22</DotNetCore>
+    <DotNetCore>6.0.23</DotNetCore>
     <Authors>rigofunc;rigofunc@outlook.com;FrontLook-Admin;frontlook.inc@gmail.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
