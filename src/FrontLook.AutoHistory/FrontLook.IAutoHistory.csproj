@@ -1,8 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
-    <DotNetCore>6.0.23</DotNetCore>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <DotNetCore Condition="'$(TargetFramework)' == 'net6.0'">6.*</DotNetCore>
+    <DotNetCore Condition="'$(TargetFramework)' == 'net8.0'">8.*</DotNetCore>
+    <VrP Condition="'$(TargetFramework)' == 'net6.0'">6</VrP>
+    <VrP Condition="'$(TargetFramework)' == 'net8.0'">8</VrP>
     <Authors>rigofunc;rigofunc@outlook.com;FrontLook-Admin;frontlook.inc@gmail.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
