@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using Microsoft.EntityFrameworkCore.IAutoHistory;
 
 namespace Microsoft.EntityFrameworkCore.AutoHistory.Test
 {

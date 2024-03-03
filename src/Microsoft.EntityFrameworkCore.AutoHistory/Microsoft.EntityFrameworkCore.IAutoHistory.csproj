@@ -6,18 +6,18 @@
     <DotNetCore Condition="'$(TargetFramework)' == 'net8.0'">8.*</DotNetCore>
     <VrP Condition="'$(TargetFramework)' == 'net6.0'">6</VrP>
     <VrP Condition="'$(TargetFramework)' == 'net8.0'">8</VrP>
-    <Authors>rigofunc;rigofunc@outlook.com;FrontLook-Admin;frontlook.inc@gmail.com</Authors>
+    <Authors>rigofunc;rigofunc@outlook.com;Microsoft.EntityFrameworkCore-Admin;Microsoft.EntityFrameworkCore.inc@gmail.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <DebugType Condition="'$(Configuration)'!='Debug'">None</DebugType>
-    <AssemblyName>FrontLook.IAutoHistory</AssemblyName>
-    <PackageId>FrontLook.IAutoHistory</PackageId>
+    <AssemblyName>Microsoft.EntityFrameworkCore.IAutoHistory</AssemblyName>
+    <PackageId>Microsoft.EntityFrameworkCore.IAutoHistory</PackageId>
     <PackageTags>Entity Framework Core;entity-framework-core;EF;Data;O/RM;Auto History;auto-history</PackageTags>
-    <PackageProjectUrl>https://github.com/frontlook-admin/AutoHistory</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Microsoft.EntityFrameworkCore-admin/AutoHistory</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/frontlook-admin/AutoHistory.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Microsoft.EntityFrameworkCore-admin/AutoHistory.git</RepositoryUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 
     <!--<Nullable>enable</Nullable>-->

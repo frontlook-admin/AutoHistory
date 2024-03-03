@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net6.0-Windows</TargetFrameworks>
+    <TargetFrameworks>net6.0;net6.0-Windows;net8.0;net8.0-Windows</TargetFrameworks>
+    <DotNetCore Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net6.0-Windows'">6.*</DotNetCore>
+    <DotNetCore Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8.*</DotNetCore>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(DotNetCore)" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\FrontLook.AutoHistory\FrontLook.AutoHistory.csproj" />
+    <ProjectReference Include="..\..\src\Microsoft.EntityFrameworkCore.AutoHistory\Microsoft.EntityFrameworkCore.IAutoHistory.csproj" />
   </ItemGroup>
 
 </Project>

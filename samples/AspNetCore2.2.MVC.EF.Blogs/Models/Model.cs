@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.IAutoHistory;
 
 namespace EFGetStarted.AspNetCore.NewDb.Models
 {
