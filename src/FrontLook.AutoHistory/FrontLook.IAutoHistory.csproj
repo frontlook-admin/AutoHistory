@@ -2,10 +2,10 @@
   <PropertyGroup>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-    <DotNetCore Condition="'$(TargetFramework)' == 'net6.0'">6.*</DotNetCore>
-    <DotNetCore Condition="'$(TargetFramework)' == 'net8.0'">8.*</DotNetCore>
-    <VrP Condition="'$(TargetFramework)' == 'net6.0'">6</VrP>
-    <VrP Condition="'$(TargetFramework)' == 'net8.0'">8</VrP>
+    <DotNetCore Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net6.0-Windows'">6.*</DotNetCore>
+    <DotNetCore Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8.*</DotNetCore>
+    <VrP Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net6.0-Windows'">6</VrP>
+    <VrP Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8</VrP>
     <Authors>rigofunc;rigofunc@outlook.com;FrontLook-Admin;frontlook.inc@gmail.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -28,23 +28,21 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <PropertyGroup Label="Version" Condition="'$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true'">
-    <MBId>3</MBId>
-    <BuildId Condition="'$(Configuration)'=='Release'">$([System.DateTime]::Now.ToString(yy)).$(MBId)</BuildId>
-    <BuildId Condition="'$(Configuration)'=='Debug'">$([System.DateTime]::Now.ToString(yy.MMdd))</BuildId>
-    <BuildCode>$([System.DateTime]::Now.ToString(hhmmss))</BuildCode>
-    <VersionPrefix Condition="'$(TargetFramework)' == 'net6.0'">6.0.$(BuildId)</VersionPrefix>
-    <VersionPrefix Condition="'$(TargetFramework)' == 'net8.0'">8.0.$(BuildId)</VersionPrefix>
-    <BuildVersion>$(BuildCode)</BuildVersion>
-    <VersionSuffix Condition="'$(Configuration)'=='Debug'">D$(BuildCode)</VersionSuffix>
 
+  <PropertyGroup Label="Version" Condition="'$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true'">
+    <BuildId>$([System.DateTime]::Now.ToString(yy.MMdd.HHmm))</BuildId>
+    <BuildId Condition="'$(Configuration)'=='Release'">$([System.DateTime]::Now.ToString(yy.MMdd.HHmm))</BuildId>
+    <BuildId Condition="'$(Configuration)'=='Debug'">$([System.DateTime]::Now.ToString(yy.MMdd))</BuildId>
+    <BuildCode Condition="'$(Configuration)'=='Release'">$([System.DateTime]::Now.ToString(.hhmmss))</BuildCode>
+    <BuildCode Condition="'$(Configuration)'=='Debug'"></BuildCode>
+    <VersionPrefix Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net6.0-Windows'">6.$(BuildId)</VersionPrefix>
+    <VersionPrefix Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8.$(BuildId)</VersionPrefix>
+    <BuildVersion>$(BuildId)$(BuildCode)</BuildVersion>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <PackageId>$(AssemblyName)</PackageId>
     <Product>$(AssemblyName)</Product>
-    <Version Condition="'$(Configuration)'=='Release'">$(VersionPrefix)</Version>
-    <Version Condition="'$(Configuration)'=='Debug'">$(VersionPrefix)-$(VersionSuffix)</Version>
-
+    <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
 
   <ItemGroup>
