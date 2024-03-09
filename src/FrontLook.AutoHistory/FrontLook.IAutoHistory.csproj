@@ -48,7 +48,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(DotNetCore)" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(DotNetCore)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(DotNetCore)" />
   </ItemGroup>
 
 </Project>
