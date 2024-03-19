@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-    <DotNetCore Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net6.0-Windows'">6.*</DotNetCore>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <DotNetCore Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8.*</DotNetCore>
     <VrP Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net6.0-Windows'">6</VrP>
     <VrP Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8</VrP>
@@ -35,7 +34,6 @@
     <BuildId Condition="'$(Configuration)'=='Debug'">$([System.DateTime]::Now.ToString(yy.MMdd))</BuildId>
     <BuildCode Condition="'$(Configuration)'=='Release'">$([System.DateTime]::Now.ToString(.hhmmss))</BuildCode>
     <BuildCode Condition="'$(Configuration)'=='Debug'"></BuildCode>
-    <VersionPrefix Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net6.0-Windows'">6.$(BuildId)</VersionPrefix>
     <VersionPrefix Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8.$(BuildId)</VersionPrefix>
     <BuildVersion>$(BuildId)$(BuildCode)</BuildVersion>
     <AssemblyVersion>$(Version)</AssemblyVersion>
