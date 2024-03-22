@@ -3,8 +3,6 @@
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <DotNetCore Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8.*</DotNetCore>
-    <VrP Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net6.0-Windows'">6</VrP>
-    <VrP Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8</VrP>
     <Authors>rigofunc;rigofunc@outlook.com;FrontLook-Admin;frontlook.inc@gmail.com</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -20,12 +18,11 @@
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 
     <!--<Nullable>enable</Nullable>-->
-    <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>latest</LangVersion>
     <!--<Nullable>enable</Nullable>-->
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
 
 
   <PropertyGroup Label="Version" Condition="'$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true'">
@@ -34,13 +31,18 @@
     <BuildId Condition="'$(Configuration)'=='Debug'">$([System.DateTime]::Now.ToString(yy.MMdd))</BuildId>
     <BuildCode Condition="'$(Configuration)'=='Release'">$([System.DateTime]::Now.ToString(.hhmmss))</BuildCode>
     <BuildCode Condition="'$(Configuration)'=='Debug'"></BuildCode>
-    <VersionPrefix Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net8.0-Windows'">8.$(BuildId)</VersionPrefix>
+    <VersionPrefix Condition="'$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true'">8.$(BuildId)</VersionPrefix>
     <BuildVersion>$(BuildId)$(BuildCode)</BuildVersion>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <PackageId>$(AssemblyName)</PackageId>
     <Product>$(AssemblyName)</Product>
     <Version>$(VersionPrefix)</Version>
+  </PropertyGroup>
+  <PropertyGroup Label="Signer" Condition="'$(Configuration)'=='Release' AND ('$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true')">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>frontlook_signature_rider.snk</AssemblyOriginatorKeyFile><!--<AssemblyOriginatorKeyFile>G:\ProjectSigner\frontlook_signature_rider.snk</AssemblyOriginatorKeyFile>-->
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
