@@ -40,15 +40,27 @@
     <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
   <PropertyGroup Label="Signer" Condition="'$(Configuration)'=='Release' AND ('$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true')">
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!--<PackageLicenseFile>LICENSE.md</PackageLicenseFile>-->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>frontlook_signature_rider.snk</AssemblyOriginatorKeyFile><!--<AssemblyOriginatorKeyFile>G:\ProjectSigner\frontlook_signature_rider.snk</AssemblyOriginatorKeyFile>-->
+    <AssemblyOriginatorKeyFile>frontlook_signature_rider.snk</AssemblyOriginatorKeyFile>
+    <!--<AssemblyOriginatorKeyFile>G:\ProjectSigner\frontlook_signature_rider.snk</AssemblyOriginatorKeyFile>-->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>G:\ProjectSigner\NugetPush\</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(DotNetCore)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(DotNetCore)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
