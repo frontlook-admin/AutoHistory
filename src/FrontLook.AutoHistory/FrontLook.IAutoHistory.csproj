@@ -21,6 +21,9 @@
     <!--<Nullable>enable</Nullable>-->
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
+
+
+    <RunAOTCompilation>true</RunAOTCompilation>
   </PropertyGroup>
 
 
