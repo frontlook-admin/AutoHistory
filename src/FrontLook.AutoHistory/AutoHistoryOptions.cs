@@ -39,7 +39,7 @@ namespace FrontLook.IAutoHistory.Internal
         /// <summary>
         /// The max length for the row id column. Default: 50.
         /// </summary>
-        public int RowIdMaxLength { get; set; } = 50;
+        public int RowIdMaxLength { get; set; } = 255;
 
         /// <summary>
         /// The max length for the table column. Default: 128.
