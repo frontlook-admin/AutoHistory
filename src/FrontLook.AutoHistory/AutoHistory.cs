@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Arch team. All rights reserved.
 
-using System;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace FrontLook.IAutoHistory
