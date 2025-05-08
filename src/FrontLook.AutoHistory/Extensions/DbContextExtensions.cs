@@ -105,8 +105,9 @@ namespace FrontLook.IAutoHistory
             */
             context.AddRange(k);
         }
+
         public static void EnsureAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, out List<TAutoHistory> autoHistories, bool EnableAddedEntries = false, string UserName = null)
-            where TAutoHistory : AutoHistory
+    where TAutoHistory : AutoHistory
         {
             // Must ToArray() here for excluding the AutoHistory model.
             // Currently, only support Modified and Deleted entity.
@@ -117,7 +118,6 @@ namespace FrontLook.IAutoHistory
             }
             else
             {
-
                 entries = context.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList();
             }
 
@@ -126,31 +126,14 @@ namespace FrontLook.IAutoHistory
             {
                 k.Add(entry.AutoHistory(createHistoryFactory, UserName));
             }
-            context.SaveChanges();
-            /*
-            var ct = 0;
-            var saved = false;
-            while (ct < 2 && !saved)
-            {
 
-#pragma warning disable CS0168 // Variable is declared but never used
-                try
-                {
-                    context.SaveChanges();
-                    saved = true;
-                }
-                catch (Exception ex)
-                {
-                    ct++;
+            // Don't call SaveChanges() here - let the caller handle the save
+            // This avoids "duplicate entry" errors from trying to save twice
 
-                }
-#pragma warning restore CS0168 // Variable is declared but never used
-            }
-            //entries.ForEach(e => e.State = EntityState.Detached);
-            */
             context.AddRange(k);
             autoHistories = k.Cast<TAutoHistory>().ToList();
         }
+
 
         public static void EnsureAutoHistory<TAutoHistory>(this DbContext context, Func<TAutoHistory> createHistoryFactory, EntityEntry[] entries, string UserName = null)
             where TAutoHistory : AutoHistory
