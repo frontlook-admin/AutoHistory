@@ -15,6 +15,9 @@ namespace FrontLook.IAutoHistory
     {
         private const int DefaultChangedMaxLength = 2048;
 
+        // Cache JsonSerializer creation for multiple context registrations
+        private static readonly object _serializerLock = new object();
+
         /// <summary>
         /// Enables the automatic recording change history.
         /// </summary>
@@ -30,18 +33,33 @@ namespace FrontLook.IAutoHistory
             });
         }
 
+        /// <summary>
+        /// Enables the automatic recording change history with more configuration options.
+        /// </summary>
+        /// <typeparam name="TAutoHistory">The auto history entity type.</typeparam>
+        /// <param name="modelBuilder">The model builder.</param>
+        /// <param name="configure">The options configuration action.</param>
+        /// <returns>The configured model builder</returns>
         public static ModelBuilder EnableAutoHistory<TAutoHistory>(this ModelBuilder modelBuilder, Action<AutoHistoryOptions> configure)
             where TAutoHistory : AutoHistory
         {
             var options = AutoHistoryOptions.Instance;
             configure?.Invoke(options);
-            options.JsonSerializer = JsonSerializer.Create(options.JsonSerializerSettings);
+
+            // We don't need to create a new JsonSerializer instance every time
+            // the property getter in AutoHistoryOptions will handle creating it lazily
+            // and caching it for future use
 
             modelBuilder.Entity<TAutoHistory>(b =>
             {
+                // Configure entity properties
                 b.Property(c => c.RowId).IsRequired().HasMaxLength(options.RowIdMaxLength);
                 b.Property(c => c.TableName).IsRequired().HasMaxLength(options.TableMaxLength);
 
+                // Configure username property with max length
+                b.Property(c => c.UserName).HasMaxLength(options.UserNameMaxLength);
+
+                // Configure Changed column
                 if (options.LimitChangedLength)
                 {
                     var max = options.ChangedMaxLength ?? DefaultChangedMaxLength;
@@ -52,8 +70,11 @@ namespace FrontLook.IAutoHistory
                     b.Property(c => c.Changed).HasMaxLength(max);
                 }
 
-                // This MSSQL only
-                //b.Property(c => c.Created).HasDefaultValueSql("getdate()");
+                // Add an index on Created date for better query performance
+                b.HasIndex(c => c.Created);
+
+                // Add a composite index on TableName and RowId for better query performance
+                b.HasIndex(c => new { c.TableName, c.RowId });
             });
 
             return modelBuilder;
