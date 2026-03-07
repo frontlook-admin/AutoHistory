@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Solution>
+  <Properties Name="Configuration">
+    <Item Value="Debug|Any CPU" />
+    <Item Value="Release|Any CPU" />
+  </Properties>
+  <Folder Name="/test/" Guid="504C6707-0D9C-4FA7-861D-B1A97AF39E32" />
+  <Folder Name="/Solution Items/" Guid="D465D73A-0055-4CFC-9093-38EF1C405B44" />
+  <Folder Name="/Samples/" Guid="DAEF4300-2306-4680-A609-86F2F9E4513A" />
+  <Folder Name="/src/" Guid="EEF95A1B-E224-4488-91ED-4CC4EC3CEEE3" />
+  <Project Path="src\FrontLook.AutoHistory\FrontLook.IAutoHistory.csproj" Type="9A19103F-16F7-4668-BE54-9A1E7A4F7556" Guid="221A7760-8852-4807-9BCC-423A467DEE79" />
+  <Project Path="test\Microsoft.EntityFrameworkCore.AutoHistory.Test\Microsoft.EntityFrameworkCore.AutoHistory.Test.csproj" Type="9A19103F-16F7-4668-BE54-9A1E7A4F7556" Guid="2F6C239E-9F05-4654-936B-CFBB00412E4B" />
+  <Project Path="src\Microsoft.EntityFrameworkCore.AutoHistory\Microsoft.EntityFrameworkCore.IAutoHistory.csproj" Type="9A19103F-16F7-4668-BE54-9A1E7A4F7556" Guid="4F165A9F-6044-4E52-83EF-3DD13679CAB5" />
+  <Project Path="samples\AspNetCore2.2.MVC.EF.Blogs\AspNetCore2.2.MVC.EF.Blogs.csproj" Type="9A19103F-16F7-4668-BE54-9A1E7A4F7556" Guid="AB1074C0-4529-44F0-B837-07E34AB9B321" />
+</Solution>
