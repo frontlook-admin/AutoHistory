@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
     <TargetFrameworks>net8.0</TargetFrameworks>
@@ -43,7 +43,7 @@
     <BuildCode Condition="'$(Configuration)'=='DevOps'" />
     <VersionPrefix Condition="'$(DesignTimeBuild)' != 'true' OR '$(BuildingProject)' == 'true'">8.$(BuildId)</VersionPrefix>
     <BuildVersion>$(BuildId)$(BuildCode)</BuildVersion>
-    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <AssemblyVersion>8.0.0.0</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <PackageId>$(AssemblyName)</PackageId>
     <Product>$(AssemblyName)</Product>

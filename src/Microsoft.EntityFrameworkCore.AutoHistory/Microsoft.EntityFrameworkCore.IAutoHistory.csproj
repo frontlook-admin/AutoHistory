@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A plugin for Microsoft.EntityFrameworkCore to support automatically recording data changes history.</Description>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
@@ -38,7 +38,7 @@
     <BuildVersion>$(BuildCode)</BuildVersion>
     <VersionSuffix Condition="'$(Configuration)'=='Debug'">D$(BuildCode)</VersionSuffix>
 
-    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <AssemblyVersion>6.0.0.0</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <PackageId>$(AssemblyName)</PackageId>
     <Product>$(AssemblyName)</Product>
