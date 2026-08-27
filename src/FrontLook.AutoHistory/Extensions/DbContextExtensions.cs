@@ -152,7 +152,6 @@ namespace FrontLook.IAutoHistory
 
             if (entries.Count == 0)
             {
-                context.SaveChanges();
                 return;
             }
 
@@ -168,9 +167,6 @@ namespace FrontLook.IAutoHistory
                     historyEntries.Add(history);
                 }
             }
-
-            // Save changes first before adding history records
-            context.SaveChanges();
 
             // Add history records in bulk if any exist
             if (historyEntries.Count > 0)
@@ -187,9 +183,6 @@ namespace FrontLook.IAutoHistory
                 ? context.ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList()
                 : context.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Deleted).ToList();
 
-            // Use cached table name instead of reflection each time
-            var entityType = entries[0].Entity.GetType();
-            var entityName = entityType?.Name ?? "";
             // Preallocate collection with exact capacity
             var historyEntries = new List<TAutoHistory>(entries.Count);
 
@@ -202,9 +195,6 @@ namespace FrontLook.IAutoHistory
                     historyEntries.Add(history);
                 }
             }
-
-            // Save changes first before adding history records
-            context.SaveChanges();
 
             // Add history records in bulk if any exist
             if (historyEntries.Count > 0)
@@ -220,7 +210,6 @@ namespace FrontLook.IAutoHistory
         {
             if (entries == null || entries.Length == 0)
             {
-                context.SaveChanges();
                 return;
             }
 
@@ -236,9 +225,6 @@ namespace FrontLook.IAutoHistory
                     historyEntries.Add(history);
                 }
             }
-
-            // Save changes first before adding history records
-            context.SaveChanges();
 
             // Add history records in bulk if any exist
             if (historyEntries.Count > 0)
@@ -253,7 +239,6 @@ namespace FrontLook.IAutoHistory
             if (entries == null || entries.Length == 0)
             {
                 autoHistories = new List<TAutoHistory>();
-                context.SaveChanges();
                 return;
             }
 
@@ -269,9 +254,6 @@ namespace FrontLook.IAutoHistory
                     historyEntries.Add(history);
                 }
             }
-
-            // Save changes first before adding history records
-            context.SaveChanges();
 
             // Add history records in bulk if any exist
             if (historyEntries.Count > 0)
@@ -300,7 +282,7 @@ namespace FrontLook.IAutoHistory
 
             if (entries.Count == 0)
             {
-                return await context.SaveChangesAsync(cancellationToken);
+                return 0;
             }
 
             // Preallocate collection with exact capacity
@@ -316,17 +298,13 @@ namespace FrontLook.IAutoHistory
                 }
             }
 
-            // Save changes first before adding history records
-            var result = await context.SaveChangesAsync(cancellationToken);
-
             // Add history records in bulk if any exist
             if (historyEntries.Count > 0)
             {
                 context.AddRange(historyEntries);
-                await context.SaveChangesAsync(cancellationToken);
             }
 
-            return result;
+            return 0;
         }
 
         /// <summary>
@@ -353,7 +331,7 @@ namespace FrontLook.IAutoHistory
 
             if (entries.Count == 0)
             {
-                return await context.SaveChangesAsync(cancellationToken);
+                return 0;
             }
 
             // Process entries in parallel or sequentially based on batch size
@@ -393,9 +371,6 @@ namespace FrontLook.IAutoHistory
                 }
             }
 
-            // Save changes first before adding history records
-            var result = await context.SaveChangesAsync(cancellationToken);
-
             // Add history records in bulk if any exist
             if (historyEntries.Count > 0)
             {
@@ -408,13 +383,10 @@ namespace FrontLook.IAutoHistory
                 {
                     var batch = historyList.Skip(i).Take(batchSize).ToList();
                     context.AddRange(batch);
-
-                    // Save each batch separately to avoid large transactions
-                    await context.SaveChangesAsync(cancellationToken);
                 }
             }
 
-            return result;
+            return 0;
         }
 
         public static TAutoHistory AutoHistory<TAutoHistory>(this EntityEntry entry, Func<TAutoHistory> createHistoryFactory, string UserName = null)
@@ -563,7 +535,7 @@ namespace FrontLook.IAutoHistory
                                             {
                                                 // Fallback to database values if serialization fails
                                                 databaseValues = databaseValues ?? entry.GetDatabaseValues();
-                                                var dbValue = databaseValues.GetValue<object>(prop.Metadata.Name);
+                                                var dbValue = databaseValues?.GetValue<object>(prop.Metadata.Name);
                                                 bef[prop.Metadata.Name] = dbValue != null
                                                     ? JToken.FromObject(dbValue, jsonSerializer)
                                                     : JValue.CreateNull();
@@ -599,7 +571,7 @@ namespace FrontLook.IAutoHistory
                                             {
                                                 // Fallback to database values if serialization fails
                                                 databaseValues = databaseValues ?? entry.GetDatabaseValues();
-                                                var dbValue = databaseValues.GetValue<object>(prop.Metadata.Name);
+                                                var dbValue = databaseValues?.GetValue<object>(prop.Metadata.Name);
                                                 bef[prop.Metadata.Name] = dbValue != null
                                                     ? JToken.FromObject(dbValue, jsonSerializer)
                                                     : JValue.CreateNull();
